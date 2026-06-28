@@ -29,7 +29,14 @@ streamlit run app_ca11.py
 
 ## Automatizar el enlace de Google Sheets
 
-La app acepta el enlace publico de Google Sheets desde la barra lateral, pero para no pegarlo cada vez puedes dejarlo fijo de tres maneras.
+La app puede funcionar con dos fuentes:
+
+- `CSV manual`: recomendado si restringieron el acceso al Google Sheet.
+- `Google Sheets`: recomendado si la hoja esta publica o publicada como CSV.
+
+En modo `CSV manual`, carga el archivo desde la barra lateral. La app lo procesa solo en memoria y no modifica el archivo original.
+
+En modo `Google Sheets`, la app acepta el enlace publico desde la barra lateral, pero para no pegarlo cada vez puedes dejarlo fijo de tres maneras.
 
 Opcion simple local: edita `config.py` y pega el enlace una sola vez:
 
@@ -50,6 +57,16 @@ GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/ID_DE_LA_HOJA/edit#gi
 ```
 
 En Streamlit Community Cloud, pega esa misma variable en `Settings > Secrets`.
+
+Si Streamlit Cloud muestra un error HTTP al leer la hoja, aunque localmente funcione, usa este camino:
+
+1. Abre Google Sheets.
+2. Ve a `Archivo > Compartir > Publicar en la web`.
+3. Elige la pestana de datos.
+4. Elige formato `Valores separados por comas (.csv)` si aparece disponible.
+5. Copia el enlace publicado y usalo como `GOOGLE_SHEET_URL`.
+
+La app sigue leyendo solamente. No escribe ni modifica la hoja original.
 
 Tercera opcion: variable de entorno:
 
